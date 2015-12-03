@@ -64,6 +64,19 @@ static CGFloat const kPullToRefreshDragToTrigger = 80;
 
 #pragma mark - Public Methods
 
+- (void)startAnimatingWithoutDragging
+{
+    // Bypass the setState method which causes side effect of triggering scrollViewDidScroll event, which
+    // then break the following UIActivityIndicatorView loading animation.
+    _state = BMYPullToRefreshStateTriggered;
+    
+    if (fequalzero(_scrollView.contentOffset.y)) {
+        [_scrollView setContentOffset:CGPointMake(_scrollView.contentOffset.x, -CGRectGetHeight(self.frame)) animated:YES];
+    }
+    
+    self.state = BMYPullToRefreshStateLoading;
+}
+
 - (void)startAnimating {
     self.state = BMYPullToRefreshStateTriggered;
     

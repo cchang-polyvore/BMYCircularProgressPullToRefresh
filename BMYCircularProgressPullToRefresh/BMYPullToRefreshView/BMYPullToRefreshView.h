@@ -29,6 +29,8 @@ typedef NS_ENUM(NSUInteger, BMYPullToRefreshState) {
 
 - (void)setProgressView:(UIView<BMYProgressViewProtocol> *)view;
 
+// This method works the same as startAnimating but fix issue where the loading animation doesn't start.
+- (void)startAnimatingWithoutDragging;
 - (void)startAnimating;
 - (void)stopAnimating;
 
